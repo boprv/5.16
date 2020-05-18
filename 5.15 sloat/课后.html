@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <zeng></zeng>
+    </div>
+    <template id="zeng">
+        <div>
+            <p>{{num}}</p>
+            <jian :unum="num" @change="getval">{{num}}</jian>
+        </div>
+    </template>
+    <template id="jian">
+        <div>
+            <button @click="fn1">增加1</button>
+            <button @click="fn2">减少1</button>
+            <p>
+                接受父内容：{{unum}}
+            </p>
+        </div>
+    </template>
+    <script>
+        let vm = new Vue({
+            el: "#box",
+            data: {
+            },
+            components: {
+                'zeng': {
+                    template: '#zeng',
+                    data: function () {
+                        return {
+                            num: 0,
+                        }
+                    },
+                    methods: {
+                        getval(val) {
+                            console.log(val);
+                            this.num=val
+                        }
+                    },
+                    components: {
+                        'jian': {
+                            template: '#jian',
+                            props: ['unum'],
+                            methods: {
+                                fn1() {
+                                    this.unum++
+                                    this.$emit('change', this.unum)
+                                },
+                                fn2(){
+                                    if(this.unum<=0){
+                                        return
+                                    }
+                                    this.unum--
+                                    this.$emit('change', this.unum)
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+
+        })
+    </script>
+</body>
+
+</html>

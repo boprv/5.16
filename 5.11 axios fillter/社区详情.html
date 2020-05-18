@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .markdown-text h3, .markdown-text h4, .markdown-text p{
+            margin: 10px 0;
+        }
+        .markdown-text img {
+            width: 50px;
+            vertical-align: middle;
+        }
+        ul{
+            border: 1px solid lightgray;
+            margin: 10px;
+            padding: 10px 20px;
+        }
+        li {
+            border-bottom: 1px solid lightgray;
+        }
+
+        .futitle {
+            color: #c1babd;
+        }
+
+        .img {
+            width: 30px;
+            display: inline-block;
+        }
+
+        .img img {
+            width: 30px;
+        }
+        .title{
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .title .left .color{
+            background-color: rgb(241, 241, 241);
+            font-size: 12px;
+            color: #9d9ca0;
+            margin-left: 5px;
+        }
+        .title .right{
+            color: red;
+            width: 2%;
+        }
+        .content{
+            text-indent: 18px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1>{{strtitle}}</h1>
+        <p class="futitle">·分类：问答 ·{{strdata.visit_count}} ·发布于:{{strdata.create_at|fn1}}
+            ·作者：{{strdata.author.loginname}}</p>
+        <div v-html="html"></div>
+        <ul>
+            <li v-for="(item,index) in list">
+                <div class="title">
+                    <div class="left">
+                        <div class="img">
+                            <img class="" :src="item.author.avatar_url" alt="">
+                        </div>
+                        <span>{{item.author.loginname}}</span><span class="color">{{index+1}}楼</span>
+                    </div>
+                    <div class="right">
+                        ❤{{item.ups.length}}
+                    </div>
+                </div>
+                <div v-html="item.content" class="content"></div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                strdata: '',
+                strtitle: "",
+                html: '',
+                list: [],
+                url: 'https://cnodejs.org/api/v1/topic/5ae140407b0e8dc508cca7cc'
+            },
+            mounted: function () {
+                this.$http.get(this.url)
+                    .then(res => {
+                        console.log(res);
+                        this.strdata = res.body.data
+                        this.strtitle = res.body.data.title
+                        this.html = res.body.data.content
+                        this.list = res.body.data.replies
+                    })
+                    .catch(err => {
+                        console.log(err);
+
+                    })
+            },
+            filters: {
+                fn1(val) {
+                    return val.replace("T", ' ').substr(0, 19);
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

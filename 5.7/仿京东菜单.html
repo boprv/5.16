@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .div {
+            
+            background-color: #ca1622;
+            width: 250px;
+            color: #fff;
+            text-indent: 5px;
+
+        }
+
+        .title {
+            padding: 10px 0;
+            font-weight: normal;
+            background-color: #b3191b;
+        }
+        .listyle{
+            font-size: 14px;
+            line-height: 25px;
+            padding-right: 10px;
+        }
+        .icon{
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" :class="stylea">
+        <h4 :class="styleb">全部商品分类</h4>
+        <ul>
+            <li v-for="(item,index) in arr" :class="listyle">
+                <span v-for="(itemc,indexc) in item.list">
+
+                    {{itemc}}
+                </span>
+                <div class="icon">></div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                stylea: 'div',
+                styleb: 'title',
+                listyle:'listyle',
+                arr: [
+                    {
+                        list:['家用电器']
+                    },
+                    {
+                        list:['手机', '数码', '相机']
+                    },
+                    {
+                        list:['电脑', '办公']
+                    },
+                    {
+                        list:['家居', '家具', '家装']
+                    },
+                    {
+                        list:['男装', '女装', '珠宝']
+                    },
+                    {
+                        list:['鞋靴', '箱包', '钟表']
+                    },
+            ]
+            }
+        })
+    </script>
+</body>
+
+</html>

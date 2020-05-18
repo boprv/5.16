@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!-- true就显示，false不会创建页面标签 -->
+        <h1 v-if="flag">if</h1>
+        <!-- 取if的反 -->
+        <h1 v-else>else</h1>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#box',
+            data:{
+                flag:false,
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="box1">
+        <demo2></demo2>
+        <demo2></demo2>
+        --------------
+        <demo1></demo1>
+        vm:{{msg}}
+    </div>
+    <div id="box2">
+        <!-- <demo2></demo2> -->
+
+    </div>
+    <template id="mytemplate">
+        <div>
+            <img src="img/tom.jpg" height="100px" alt="">
+            <h3 @click="fn1">标题内容</h3>
+            <p>{{msg}}</p>
+        </div>
+    </template>
+    <script>
+        var vm=new Vue({
+            el:"#box1",
+            data:{
+                msg:'vmmsg'
+            },
+            components:{
+                'demo2':{
+                    template:'#mytemplate',
+                    data:function(){
+                        return {
+                            msg:'组件msg'
+                        }
+                    },
+                    methods:{
+                        fn1(){
+                            console.log('fn1');
+                            
+                        }
+                    }
+                },
+                'demo1':{
+                    template:'<div>这是div</div>'
+                }
+            }
+        })
+        var vm2=new Vue({
+            el:"#box2",
+            data:{
+
+            },
+            // components:{
+            //     'demo2':{
+            //         template:'#mytemplate'
+            //     }
+            // }
+        })
+        
+    </script>
+</body>
+
+</html>

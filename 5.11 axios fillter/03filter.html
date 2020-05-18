@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <h1>{{msg|str|str|str|str|str|str|str}}</h1>
+        <ul>
+            <li v-for="item in list">
+                <p>{{item.name}}:{{item.price | discount(7) | str }}</p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let vm=new Vue({
+            el:"#box",
+            data:{
+                msg:'cxk',
+                list:[
+                    {name:'电脑',price:'3000'},
+                    {name:'鼠标',price:'3333'},
+                    {name:'键盘',price:'7777'}
+                ]
+            },
+            filters:{
+                discount:function(value,disc){
+                    return value*disc/100
+                },
+                str:function(val){
+                    return '¥'+val
+                }
+            }
+        })
+    </script>
+</body>
+</html>

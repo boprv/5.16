@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 1.引入 -->
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 2.创建视图层view -->
+    <div id="box">
+        <h1>初体验</h1>
+        <p>
+            <!-- 4.使用数据将变量放到{{}}里 -->
+            {{msg}}
+        </p>
+    </div>
+    <!-- 3.初始化一个vue实例对象 -->
+    <script>
+        let vm=new Vue({
+            el:'#box',
+            data:{
+                msg:'cxk'
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .mydiv{
+            background-color: violet;
+            height: 50px;
+        }
+        .divfont{
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 1.动态绑定属性值 -->
+        <img v-bind:src="src" alt="">
+        <!-- <img :src="src" alt=""> -->
+
+        <!-- 2.根据变量判断改变属性值 -->
+        <!-- v-bind:class="{类名:表达式}" -->
+        <div v-bind:class="{mydiv:hasdiv}">mydiv</div>
+        <!-- 3.绑定多个 -->
+        <div v-bind:class="{div:hasdiv,divfont:hasfont}">div2</div>
+        <!-- 3.2 -->
+        <div v-bind:class="classobj">div3</div>
+        <!-- 4. -->
+        <div v-bind:class="[stylea,styleb]">div4</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                src:'img/sekiro.jpg',
+                hasdiv:true,
+                hasfont:true,
+                classobj:{
+                    'div':true,
+                    'divfont':true
+                },
+                stylea:'div',
+                styleb:'divfont'
+            }
+        })
+    </script>
+</body>
+
+</html>

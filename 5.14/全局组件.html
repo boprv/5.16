@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <demo></demo>
+    </div>
+    -----------------
+    <div id="box2">
+        <demo></demo>
+    </div>
+    <!-- 2.定义模板 -->
+    <!-- 必须要并且只有一个根节点 -->
+    <template id="mytemplate">
+        <div>
+            <img src="img/tom.jpg" height="100px" alt="">
+            <h3 @click='fn1'>标题内容</h3>
+            <p>
+                段落
+            </p>
+            <p>
+                {{msg}}
+            </p>
+        </div>
+    </template>
+    <script>
+        Vue.component('demo',{
+            // 1.制定模板内容
+            // template:'<div>div</div>'
+            template:"#mytemplate",
+            // 组件定义数据
+            data:function(){
+                return {
+                    msg:'组件msg'
+                }
+            },
+            methods:{
+                fn1(){
+                    console.log('fn1');
+                    
+                }
+            }
+        })
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                msg1:''
+            }
+        })
+        var vm2=new Vue({
+            el:"#box2"
+        })
+    </script>
+</body>
+</html>

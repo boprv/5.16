@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="fn2">请求服务器get</button>
+        <button @click="fn3">请求服务器post</button>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                url: 'http://localhost:9000/'
+            },
+            // 生命周期
+            mounted: function () {
+                console.log(1);
+                axios.interceptors.request.use(config => {
+                    console.log('拦截-req');
+                    return config;
+                }, error => {
+                    console.log('拦截req-err');
+                    return Promise.reject(error);
+                });
+                axios.interceptors.response.use(response => {
+                    console.log('拦截-res');
+                    // 对相应数据进行二次处理
+                    // response.data={result:0}
+                    return response;
+                }, error => {
+                    console.log('拦截res-err');
+                    return Promise.reject(error);
+                });
+            },
+            methods: {
+                fn2() {
+                    axios.get(this.url + "get", {
+                        params: {
+                            a: 15, b: 10
+                        }
+                    })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => {
+                        console.log('geterr', err);
+                    })
+                },
+
+                fn3() {
+                    let params = new URLSearchParams();
+                    params.append('a', 10),
+                        params.append('b', 6);
+                    axios.post(this.url + "post", params)
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => {
+                        console.log('posterr', err);
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <h1>{{msg}}</h1>
+        <p>数值:{{500}}</p>
+        <p>
+            字符串:{{'阿巴阿巴'}}
+        </p>
+        <p>运算:{{1+1}}</p>
+        <p>拼接:{{msg+'asd'}} </p>
+        <p>
+            三元操作符:{{1>1?'true':'false'}}
+        </p>
+    </div>
+    <script>
+        let vm=new Vue({
+            el:"#box",
+            data:{
+                msg:"cxk"
+            }
+        })
+    </script>
+</body>
+</html>

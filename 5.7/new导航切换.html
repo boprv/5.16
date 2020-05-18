@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #box{
+            display: inline-block;
+            text-align: center;
+        }
+        .ulse{
+            display: flex;
+            width: 600px;
+            height: 50px;
+            margin-bottom: 50px;
+        }
+        .lise{
+            background-color: #65b449;
+            color: #fff;
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+        }
+        .red{
+            background-color: #e45885;
+        }
+        .text{
+            color: #fff;
+            background-color: #65b449;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul :class="ulse">
+            <li v-for="(item,index) in list" class="lise" :class="{red:item.active}" @click="fn(item,index)">
+                {{item.name}}
+            </li>
+        </ul>
+        <p>你选择了<span class="text">{{curname}}</span></p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                list:[
+                    {
+                        name:'HTML',active:true
+                    },
+                    {
+                        name:'css',active:false
+                    },
+                    {
+                        name:'java',active:false
+                    },
+                    {
+                        name:'vue',active:false
+                    }
+                ],
+                curname:'',
+                ulse:'ulse'
+            },
+            methods:{
+                fn:function(item,index){
+                    for(let i=0;i<this.list.length;i++){
+                        this.list[i].active=false;
+                    }
+                    item.active=true
+                    this.curname=item.name
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

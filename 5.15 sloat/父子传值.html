@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <parent></parent>
+    </div>
+    <template id="parentT">
+        <div>
+            <h1>父组件</h1>
+            <!-- 子传父3 -->
+            <p>接受子传递的数据:{{showcmsg}}</p>
+            <child :inmsg="pmsg" @change="getVal"></child>
+            <!-- 父传子3 -->
+            <!-- <child :inmsg="pmsg"></child> -->
+        </div>
+    </template>
+    <template id="childT">
+        <div>
+            -------------------
+            <h1>子组件</h1>
+            <div>
+                <!-- 父传子2 -->
+                <!-- 接受父的内容：{{inmsg}} -->
+            </div>
+            <!-- 子传父1 -->
+            <button @click="fn">点击传递数据给父</button>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+
+            },
+            components: {
+                'parent': {
+                    template:"#parentT",
+                    data:function(){
+                        return {
+                            pmsg:'我是pmsg',
+                            showcmsg:''
+                        }
+                    },
+                    methods:{
+                        getVal(val){
+                            console.log(val);
+                            // 子传父4
+                            this.showcmsg=val
+                        }
+                    },
+                    components: {
+                        'child': {
+                            template: "#childT",
+                            data:function(){
+                                return{
+                                    cmsg:'我是cmsg'
+                                }
+                            },
+                            // 父传子1
+                            props:['inmsg'],
+                            methods:{
+                                fn(){
+                                    // 子传父2
+                                    this.$emit('change',this.cmsg)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

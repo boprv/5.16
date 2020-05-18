@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model='firstname'>
+        <input type="text" v-model='lastname'>
+        <div>
+            {{fullname}}{{fullname}}{{fullname}}
+        </div>
+        <div>
+            {{getFullname()}}{{getFullname()}}{{getFullname()}}
+        </div>
+        <div></div>
+    </div>
+    <script>
+        // computed 属性调用,methods是函数调用()
+        // computed 只要值没改变就取上一次的值,而函数每次都会调用
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                firstname:'',
+                lastname:''
+            },
+            computed:{
+                fullname(){
+                    // console.log('computed');
+                    return this.firstname+'-'+this.lastname
+                    
+                }
+            },
+            methods:{
+                getFullname(){
+                    // console.log('methods');
+                    
+                    return this.firstname+'-'+this.lastname
+                }
+            },
+            watch:{
+                firstname:function(newValue,oldValue){
+                    // console.log('watch');
+                    console.log(this.firstname,newValue,oldValue);
+                    
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>

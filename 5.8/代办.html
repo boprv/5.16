@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 400px;
+            padding: 20px;
+            background-color: #eeeeee;
+        }
+
+        .finish {
+            color: lightgray;
+            text-decoration: line-through;
+        }
+        li{
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1>任务列表</h1>
+        <p>
+            任务总数：<span>{{list.length}}</span>;还有：<span>{{getunfinish()}}</span>未完成:【<a href="#" @click="finish">完成</a>】
+        </p>
+        <ul>
+            <li v-for="item in list" :class="{finish:item.isFinish}">
+                <input type="checkbox" v-model="item.isFinish"/>
+                {{item.title}}
+            </li>
+        </ul>
+        <p>
+            <input type="text" v-model="titlename">
+            <button @click="add">添加</button>
+        </p>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                list: [
+                    { title: '编写页面代码', isFinish: false },
+                    { title: '编写js代码', isFinish: false },
+                    { title: '设计产品原型', isFinish: false },
+                    { title: '任务1', isFinish: false },
+                ],
+                titlename:''
+            },
+            methods: {
+                getunfinish(){
+                    let num=0;
+                    this.list.forEach(item=>{
+                        if(!item.isFinish){
+                            num++
+                        }
+                    })
+                    return num
+                },
+                finish(){
+                    let arr=this.list;
+                    this.list=[];
+                    for(let i=0;i<arr.length;i++){
+                        if(!arr[i].isFinish){
+                            this.list.push(arr[i])
+                        }
+                    }
+                },
+                add(){
+                    console.log(this.titlename);
+                    this.list.push({title:this.titlename,isFinish:false})
+                    this.titlename=""
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

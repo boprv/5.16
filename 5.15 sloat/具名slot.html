@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <mytemp>
+            <h1 slot="cpu">amd2700x</h1>
+            <h1 slot="memory">海盗船16G</h1>
+            <h1 slot="navdia">七彩虹1660ti</h1>
+        </mytemp>
+    </div>
+    <template id="head">
+        <div>
+            <slot name="navdia"></slot>
+            <slot name="cpu"></slot>
+            <slot name="memory"></slot>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el:"#box",
+            data:{},
+            components:{
+                'mytemp':{
+                    template:"#head"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

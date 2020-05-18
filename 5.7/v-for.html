@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 1.遍历对象 -->
+        <ul>
+            <li v-for="(value,key,index) in person">
+                {{value}} {{key}} {{index}}
+            </li>
+        </ul>
+        <!-- 2.遍历数组 -->
+        <ul>
+            <li v-for="(item,index) in arr">
+                {{item}} {{index}}
+            </li>
+        </ul>
+        <!-- 3. -->
+        <ul>
+            <li v-for="(item,index) in perlist">
+                {{item.name}}-{{item.address}}-{{index}}
+                <span v-for="(itemc,indexc) in item.hobbies">
+                    {{itemc}}
+                </span>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                person: {
+                    name: '张三',
+                    age: 55,
+                    address: '深圳'
+                },
+                arr: ["唱", "跳"],
+                perlist: [
+                    {
+                        name: '张三',
+                        age: 55,
+                        address: '深圳',
+                        hobbies:["唱", "跳"]
+                    },
+                    {
+                        name: '张三2',
+                        age: 22,
+                        address: '深圳2'
+                    },{
+                        name: '张三3',
+                        age: 33,
+                        address: '深圳3'
+                    },
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 700px;
+        }
+
+        #box fieldset {
+            padding: 15px;
+            border-color: violet;
+            margin: 15px;
+        }
+
+        fieldset input {
+            margin: 10px 0;
+        }
+
+        .btn input {
+            color: #fff;
+            background-color: #44aac7;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+
+        .content {
+            margin: 15px;
+            border: 2px solid #40acc8;
+        }
+
+        .content .title {
+            display: flex;
+            color: #fff;
+            background-color: #40acc8;
+            height: 50px;
+            line-height: 50px;
+
+        }
+
+        .content .title span {
+            flex: 1;
+            text-align: center;
+        }
+
+        .content li {
+            display: flex;
+        }
+
+        .content li span {
+            height: 40px;
+            line-height: 40px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .content li span:last-of-type input {
+            background-color: #44adca;
+            color: #fff;
+            border: none;
+            height: 90%;
+            width: 50%;
+            border-radius: 8px;
+        }
+
+        .backcolor {
+            background-color: #ebebeb;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <fieldset>
+            <legend>学生信息录入系统</legend>
+            <p>
+                姓名：<input type="text" v-model="usestudent.name" @blur="getname">
+                <span v-show="name" >请填写正确姓名</span>
+            </p>
+            <p>
+                年龄：<input type="text" v-model="usestudent.age" @blur="getage">
+                <span v-show="age">请填写正确年龄</span>
+            </p>
+            <p>
+                性别：<select name="" v-model="usestudent.six">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </p>
+            <p>
+                手机：<input type="text" v-model="usestudent.phone" @blur="getphone">
+                <span v-show="phone">请填写正确号码</span>
+            </p>
+            <p class="btn">
+                <input type="button" value="创建新用户" @click="create">
+                <span v-show="isshow">请填写完整信息</span>
+            </p>
+        </fieldset>
+        <div class="content">
+            <div class="title">
+                <span>姓名</span>
+                <span>性别</span>
+                <span>年龄</span>
+                <span>手机</span>
+                <span>删除</span>
+            </div>
+            <ul>
+                <li v-for="(item,index) in studentlist" :class="{backcolor:index%2==0?true:false}">
+                    <span>{{item.name}}</span>
+                    <span>{{item.six}}</span>
+                    <span>{{item.age}}</span>
+                    <span>{{item.phone}}</span>
+                    <span><input type="button" value="删除" @click="btn(index)"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#box",
+            data: {
+                studentlist: [
+                    { name: '张三', six: '女', age: 20, phone: 15473124380 },
+                    { name: '李四', six: '女', age: 11, phone: 15757575755 },
+                    { name: '王五', six: '女', age: 22, phone: 15525252525 },
+                ],
+                usestudent:{name:undefined,six:'男',age:'',phone:''},
+                isshow:false,
+                name:false,
+                age:false,
+                phone:false,
+                istrue:false
+            },
+            methods: {
+                btn(index) {
+                    this.studentlist.splice(index,1)
+                    // console.log(this.studentlist);
+                },
+                create(){
+                    console.log(this.usestudent);
+                    if(this.usestudent.name==''||this.usestudent.age==''||this.usestudent.phone==''){
+                        this.isshow=true
+                    }else if(!this.istrue){
+                        alert('请填写正确信息')
+                    }else{
+                        this.isshow=false
+                        this.studentlist.push({
+                            name:this.usestudent.name,six:this.usestudent.six,age:this.usestudent.age,phone:this.usestudent.phone
+                        })
+                        console.log(this.studentlist);
+                    }
+                },
+                getname(){
+                    var reg=/^[\d\w\u4e00-\u9fa5]{3,16}$/;
+                    if(!reg.test(this.usestudent.name)){
+                        this.name=true
+                        this.istrue=false
+                    }else{
+                        this.name=false
+                        this.istrue=true
+                    }
+                },
+                getage(value){
+                    var reg=/^\d{1,2}$/;
+                    if(!reg.test(this.usestudent.age)){
+                        this.age=true
+                        this.istrue=false
+                    }else{
+                        this.age=false
+                        this.istrue=true
+                    }
+                },
+                getphone(value){
+                    var reg=/^15[5678]\d{8}$/;
+                    if(!reg.test(this.usestudent.phone)){
+                        this.phone=true
+                        this.istrue=false
+                    }else{
+                        this.phone=false
+                        this.istrue=true
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

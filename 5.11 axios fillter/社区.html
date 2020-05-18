@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        li{
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid lightgray;
+        }
+        .img{
+            width: 30px;
+            display: inline-block;
+        }
+        .left img{
+            width: 30px;
+            vertical-align: middle;
+        }
+        .right{
+            font-size: 14px;
+        }
+        .color{
+            color: tan;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img src="img/5-121204193Q9.gif" v-show="flag">
+        <ul>
+            <li v-for="item in list">
+                <div class="left">
+                    <div class="img">
+                        <img :src="item.author.avatar_url" alt="">
+                    </div>
+                    <span class="color">{{item.reply_count}}/{{item.visit_count}}</span>
+                    <span>{{item.title}}</span>
+                </div>
+                <div class="right">
+                    {{item.last_reply_at|fn1}}
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                msg:'hello',
+                flag:true,
+                list:[]
+            },
+            mounted:function(){
+                axios.get('https://cnodejs.org/api/v1/topics')
+                .then(res=>{
+                    //  console.log(res);
+                     console.log(res.data.data);
+                    this.list=res.data.data
+                    this.flag=false
+                })
+            },
+            filters:{
+                fn1(val){
+                    return val.replace("T",' ').substr(0,19);
+                }
+            }
+        })
+        
+    </script>
+</body>
+
+</html>

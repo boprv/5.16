@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-resource.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style:none;
+        }
+        #box{
+            width: 500px;
+            margin: 100px auto;
+        }
+        .search{
+            box-shadow: 0 0 6px 0.5px gray;
+            display: flex;
+            justify-content: space-between;
+        }
+        input{
+            text-indent: 8px;
+            border: none;
+            outline: none;
+            flex: 1;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+            background-color: lightgray;
+            font-size: 14px;
+            padding: 10px 30px;
+        }
+        ul li{
+            box-shadow: 0 .5px 0px 0.3px gray;
+            padding: 5px;
+        }
+        .active{
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div class="search">
+            <input type="text" @input="search" v-model="searchvalue" @keydown.up="up" @keydown.down="down">
+            <a href="#">百度一下</a>
+        </div>
+        <ul>
+            <li v-for="(item,index) in list" :class="{active:index==cindex}" >
+                {{item}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                searchvalue: '',
+                list:[],
+                cindex:0
+            },
+            methods: {
+                search(){
+                    // console.log(this.searchvalue);
+                    this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=%E6%B4%97%E8%A1%A3%E6%9C%BA',{
+                        params:{
+                            wd:this.searchvalue
+                        },
+                        jsonp:'cb'
+                    })
+                    .then(res=>{
+                        console.log(res);
+                        this.list=res.body.s
+                    })
+                },
+                up(){
+                    this.cindex--
+                    if(this.cindex==-1){
+                        this.cindex=this.list.length-1
+                    }
+                    console.log('up');
+                    this.searchvalue=this.list[this.cindex]
+                },
+                down(){
+                    this.cindex++
+                    if(this.cindex>this.list.length-1){
+                        this.cindex=0
+                    }
+                    console.log('down');
+                    this.searchvalue=this.list[this.cindex]
+                    
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

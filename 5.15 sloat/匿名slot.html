@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <temp1>
+            <div>
+                我是slotA
+            </div>
+        </temp1>
+        <temp1>
+            <div>
+                我是slotB
+            </div>
+        </temp1>
+    </div>
+    <template id="head">
+        <div>
+            <h1>头部标题</h1>
+            <slot></slot>
+            <p>段落</p>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el:"#box",
+            data:{},
+            components:{
+                'temp1':{
+                    template:"#head"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

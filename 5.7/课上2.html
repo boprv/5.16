@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        #box{
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .text{
+            border: 5px solid #40819c;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p @click="fn1"><img src="img/pic.png" alt="" v-show="isshow">{{text}}</p>
+        <input class="text" v-model="text" type="text" v-show="isshow">
+    </div>
+    <script>
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                text:'ed',
+                isshow:false
+            },
+            methods:{
+                fn1:function(){
+                    this.isshow=!this.isshow;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

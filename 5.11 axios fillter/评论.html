@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        #box{
+            padding-left: 50px;
+        }
+        .com{
+            padding: 5px 0;
+            font-size: 16px;
+            text-indent: 10px;
+        }
+        .day{
+            font-size: 14px;
+            color: lightslategrey;
+        }
+        li{
+            border-bottom: 1px solid lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <img src="img/5-121204193Q9.gif" v-show="isshow">
+        <ul>
+            <li v-for="item in list">
+                <p class="day">
+                    {{item.createAt|fmtDate}}
+                </p>
+                <p class="com">
+                    {{item.commentTxt}}
+                </p>
+                
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                list:[],
+                isshow:true
+            },
+            mounted:function(){
+                axios.get('http://api.artgoer.cn:8084/artgoer/api/v1/user/324380/v3/topic/topicHomeByLabel?pageIndex=1&token=b544cd63-6d42-46fe-a96c-3cf96bae3113&topicId=62187')
+                    .then(res=>{
+                        console.log(res.data.data.commentList);
+                        this.list=res.data.data.commentList
+                        this.isshow=false
+                    })
+                    .catch(err=>{
+                        console.log(err);
+                        
+                    })
+            },
+            filters:{
+                fmtDate:function(val){
+                    return val.substr(0,10)
+                }
+            },
+            methods:{
+            }
+        })
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        #box{
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .text{
+            background-color: violet;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p @click="fn1">click</p>
+        <div class="text"type="text" v-show="isshow"></div>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                isshow:false
+            },
+            methods:{
+                fn1:function(){
+                    this.isshow=!this.isshow;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="msg">
+        <p>
+            {{msg}}
+        </p>
+    </div>
+    <script>
+        let vm=new Vue({
+            el:'#box',
+            data:{
+                msg:'hi'
+            },
+            // 创建之前
+            beforeCreate:function(){
+                console.group('---------beforeCreate-------')
+                // 全是undefind
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // 创建完成
+            created:function(){
+                console.group('---------created-------')
+                // 只有el是undefind
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // 挂载前
+            beforeMount:function(){
+                console.group('---------beforeMount-------')
+                // 获取到了box，但是没真正的创建完成，数据都还是占位符形式
+                console.log(this.$el);
+                // 3个都有值
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // 挂载后
+            mounted:function(){
+                console.group('---------mounted-------')
+                // el彻底创建完成
+                console.log(this.$el);
+                // 3个都有值
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // 绑定的数据更新了就会触发更新函数
+            // 更新前
+            beforeUpdate:function(){
+                console.group('---------beforeUpdate-------')
+                // el彻底创建完成
+                console.log(this.$el);
+                // 3个都有值
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // 更新后
+            updated:function(){
+                console.group('---------updated-------')
+                console.log(this.$el);
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // vm.$destroy()在控制台执行
+            // 效果：解除绑定，销毁事件监听
+            // 销毁之前
+            beforeDestroy:function(){
+                console.group('---------beforeDestroy-------')
+                console.log(this.$el);
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            },
+            // 销毁之后
+            destroyed:function(){
+                console.group('---------destroyed-------')
+                console.log(this.$el);
+                console.log(`el:${this.$el},data:${this.$data},msg:${this.msg}`);
+            }
+        })
+        // vm.$destroy();
+    </script>
+</body>
+</html>

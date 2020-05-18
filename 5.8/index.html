@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        body {
+            background-color: #5e9db7;
+        }
+
+        * {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin-left: 50px;
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+
+        }
+
+        ul {
+            flex-wrap: wrap;
+        }
+
+        li {
+            background-color: #e0c921;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 5px 0;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 10px;
+        }
+
+        li span {
+
+            width: 50%;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .sum {
+            background-color: transparent;
+            border-top: 1px solid #8fc8e0;
+        }
+
+        .color {
+            background-color: #8dc16e;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1>Services</h1>
+        <ul>
+            <li v-for="(item,index) in list" @click="fn(item,index)" :class="{color:item.active}">
+                <span>{{item.name}}</span><span class="right">{{item.value}} </span>
+            </li>
+            <li class="sum">
+                <span>Total</span><span class="right">{{sum}}</span>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                list: [
+                    {
+                        name: 'Web Development',
+                        value: 3000,
+                        active: false
+                    },
+                    {
+                        name: 'Python',
+                        value: 1000,
+                        active: false
+                    },
+                    {
+                        name: 'Java',
+                        value: 2000,
+                        active: false
+                    },
+                    {
+                        name: 'GO',
+                        value: 2200,
+                        active: false
+                    },
+                ],
+                sum:0
+            },
+            methods: {
+                fn: function (item, index) {
+                    console.log(item,index);
+                    // this.list[index].active=!this.list[index].active
+                    // if(this.list[index].active){
+                    //     this.sum+=item.value
+                    // }else{
+                    //     this.sum-=item.value
+                    // }
+                    item.active=!item.active
+                    if(item.active){
+                        this.sum+=item.value
+                    }else{
+                        this.sum-=item.value
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

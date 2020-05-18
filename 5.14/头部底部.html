@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin: 0;padding: 0;list-style: none;
+        }
+        #head{
+            background-color: #90ee90;
+            padding: 5px 8px;
+        }
+        #head{
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+        #head form{
+            padding: 0 2px;
+            border-radius: 5px;
+            background-color: #fff;
+            width: 88%;
+        }
+        #head form input{
+            width: 80%;
+            height: 20px;
+            border: none;
+            outline: none;
+        }
+        #head form img{
+            width: 20px;
+            vertical-align: middle;
+        }
+        #head .img{
+            width: 8%;
+        }
+        #head .img img{
+            width: 25px;
+        }
+        #footer{
+            border-top: 1px solid #dfdfdf;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+        }
+        #footer a{
+            text-align: center;
+            font-size: 13px;
+            text-decoration: none;
+            color: #818181;
+        }
+        #footer a img{
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <demo1></demo1>
+        <demo2></demo2>
+    </div>
+    <template id="temphead">
+        <div id="head">
+            <form action="#">
+                <img src="img/ic_search_gray.png" alt="" @click="fn1">
+                <input type="text" :placeholder="msg">
+                <img src="img/ic_scan_gray.png" alt="">
+            </form>
+            <div class="img">
+                <img src="img/ic_chat_white.png" alt="">
+            </div>
+        </div>
+    </template>
+    <template id="tempfooter">
+        <div id="footer">
+            <a href="#"><img src="img/1.png" alt=""><p>首页</p></a>
+            <a href="#"><img src="img/2.png" alt=""><p>搜索</p></a>
+            <a href="#"><img src="img/3.png" alt=""><p>热点</p></a>
+            <a href="#"><img src="img/4.png" alt=""><p>购物车</p></a>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            components: {
+                'demo1': {
+                    template: '#temphead',
+                    data:function(){
+                        return {
+                            msg:"请输入搜索的内容"
+                        }
+                    },
+                    methods:{
+                        fn1(){
+                            this.msg="自定义"
+                        }
+                    }
+                },
+                'demo2':{
+                    template:"#tempfooter"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

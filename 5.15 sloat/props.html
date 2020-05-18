@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;padding: 0;list-style: none;
+    }
+    #box div{
+        padding: 10px 0;
+        text-align: center;
+        background-color: #f7f7f7;
+        font-size: 15px;
+        border-bottom: 2px solid #bbbbbb;
+        position: relative;
+    }
+    #box div img{
+        position: absolute;
+        right: 40px;
+        width: 25px;
+    }
+    #box div .img2{
+        right: 5px;
+    }
+</style>
+
+<body>
+    <div id="box">
+        <demo ctitle="书影音">
+            <img slot="left" src="img/ic_actionbar_search_icon.png" alt="" >
+            <img slot="right" src="img/ic_create_group_chat_blue.png" alt="" class="img2">
+        </demo>
+        <demo ctitle="广播" src1="" src2="img/ic_create_group_chat_blue.png">
+            <img slot="left" src="img/ic_status_search_user.png" alt="" >
+            <img slot="right" src="img/ic_create_group_chat_blue.png" alt="" class="img2">
+        </demo>
+        <demo ctitle="小组">
+            <img slot="left" src="img/ic_actionbar_search_icon.png" alt="" >
+            <img slot="right" src="img/ic_create_group_chat_blue.png" alt="" class="img2">
+        </demo>
+        <demo ctitle="我的">
+            <img slot="right" src="img/ic_settings.png" alt="" class="img2">
+        </demo>
+    </div>
+    <template id="temp">
+        <div>
+            {{ctitle}}
+            <slot name="left"></slot>
+            <slot name="right"></slot>
+        </div>
+    </template>
+    <script>
+        let vm = new Vue({
+            el: "#box",
+            data: {},
+            components: {
+                'demo': {
+                    template: "#temp",
+                    props: ['ctitle', 'src1', 'src2']
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1 v-cloak>{{msg}}</h1>
+        <h1 v-text="msg"></h1>
+        <p>_________________________</p>
+        <p>{{tag}}</p>
+        <!-- 文本 -->
+        <p v-text="tag"></p>
+        <!-- html解析 -->
+        <p v-html='tag'></p>
+        <p>_________________________</p>
+        <input type="text" v-model="up">
+        <!-- 只渲染一次 -->
+        <p v-once>{{up}}</p>
+        <p>{{up}}</p>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:"#box",
+            data:{
+                msg:'hello',
+                tag:'<h3>标题3</h3>',
+                up:'44'
+            }
+        })
+        
+    </script>
+</body>
+
+</html>
