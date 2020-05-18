@@ -33,9 +33,7 @@
         <div>
             <button @click="fn1">增加1</button>
             <button @click="fn2">减少1</button>
-            <p>
-                接受父内容：{{unum}}
-            </p>
+            <p>接受父内容：{{unum}}</p>
         </div>
     </template>
     <script>
@@ -60,7 +58,11 @@
                     components: {
                         'jian': {
                             template: '#jian',
-                            props: ['unum'],
+                            data:function(){
+                            	return{
+                            		unum:0
+                            	}
+                            },
                             methods: {
                                 fn1() {
                                     this.unum++
@@ -76,7 +78,7 @@
                             }
                         }
                     }
-                },
+                }
             }
 
         })
